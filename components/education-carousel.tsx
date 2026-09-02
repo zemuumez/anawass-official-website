@@ -10,9 +10,9 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 
-type Topic = 'home' | 'hiv' | 'stis' | 'access' | 'partners' | 'privacy' | 'am';
+export type Topic = 'home' | 'hiv' | 'stis' | 'access' | 'partners' | 'privacy' | 'am';
 
-type Slide = {
+export type Slide = {
   src: string;
   alt: string;
   eyebrow: string;
@@ -20,6 +20,7 @@ type Slide = {
   copy: string;
   href: string;
   linkLabel: string;
+  badgeLabel?: string;
 };
 
 const topics: Record<Topic, { eyebrow: string; title: string; description: string; slides: Slide[] }> = {
@@ -95,8 +96,17 @@ const topics: Record<Topic, { eyebrow: string; title: string; description: strin
   },
 };
 
-export function EducationCarousel({ topic }: { topic: Topic }) {
-  const content = topics[topic];
+export function EducationCarousel({
+  topic,
+  customSlides,
+  locale = 'en',
+}: {
+  topic: Topic;
+  customSlides?: Slide[];
+  locale?: 'en' | 'am';
+}) {
+  const content = topics[topic] || topics.home;
+  const activeSlides = customSlides && customSlides.length > 0 ? customSlides : content.slides;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
@@ -112,6 +122,8 @@ export function EducationCarousel({ topic }: { topic: Topic }) {
     };
   }, [api]);
 
+  const slideBadgePrefix = locale === 'am' ? 'የትምህርት ስላይድ' : 'Visual lesson';
+
   return (
     <section className="overflow-hidden bg-white py-20 sm:py-28" aria-label={`${content.eyebrow}: ${content.title}`}>
       <div className="mx-auto max-w-[1240px] px-5 sm:px-8">
@@ -122,27 +134,57 @@ export function EducationCarousel({ topic }: { topic: Topic }) {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-forest-800/65">{content.description}</p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="mr-2 text-sm font-semibold tabular-nums text-forest-800/55">0{current + 1} / 0{content.slides.length}</span>
-            <button type="button" onClick={() => api?.scrollPrev()} className="grid size-12 place-items-center rounded-full border border-emerald-950/15 bg-white text-forest-950 transition hover:bg-mint-100" aria-label="Previous teaching slide"><ArrowLeft className="size-5" /></button>
-            <button type="button" onClick={() => api?.scrollNext()} className="grid size-12 place-items-center rounded-full bg-forest-950 text-white transition hover:bg-emerald-800" aria-label="Next teaching slide"><ArrowRight className="size-5" /></button>
+            <span className="mr-2 text-sm font-semibold tabular-nums text-forest-800/55">
+              0{current + 1} / 0{activeSlides.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => api?.scrollPrev()}
+              className="grid size-12 place-items-center rounded-full border border-emerald-950/15 bg-white text-forest-950 transition hover:bg-mint-100"
+              aria-label="Previous teaching slide"
+            >
+              <ArrowLeft className="size-5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => api?.scrollNext()}
+              className="grid size-12 place-items-center rounded-full bg-forest-950 text-white transition hover:bg-emerald-800"
+              aria-label="Next teaching slide"
+            >
+              <ArrowRight className="size-5" />
+            </button>
           </div>
         </div>
 
         <Carousel setApi={setApi} opts={{ loop: true }} aria-label={content.title}>
           <CarouselContent>
-            {content.slides.map((slide, index) => (
-              <CarouselItem key={`${topic}-${slide.title}`}>
+            {activeSlides.map((slide, index) => (
+              <CarouselItem key={`${topic}-${slide.title}-${index}`}>
                 <article className="grid min-h-[560px] overflow-hidden rounded-[2.4rem] bg-forest-950 text-white lg:grid-cols-[1.08fr_.92fr]">
                   <div className="relative min-h-[330px] lg:min-h-full">
-                    <img src={slide.src} alt={slide.alt} className="absolute inset-0 size-full object-cover" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+                    <img
+                      src={slide.src}
+                      alt={slide.alt}
+                      className="absolute inset-0 size-full object-cover"
+                      loading={index === 0 ? 'eager' : 'lazy'}
+                      decoding="async"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-forest-950/60 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-forest-950/20" />
-                    <span className="absolute left-6 top-6 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-950">Visual lesson {index + 1}</span>
+                    <span className="absolute left-6 top-6 rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-forest-950">
+                      {slide.badgeLabel || `${slideBadgePrefix} ${index + 1}`}
+                    </span>
                   </div>
                   <div className="flex flex-col justify-center p-8 sm:p-12 lg:p-16">
                     <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-300">{slide.eyebrow}</p>
                     <h3 className="mt-6 text-balance text-4xl font-semibold leading-[1.04] tracking-[-0.05em] sm:text-5xl">{slide.title}</h3>
                     <p className="mt-6 text-lg leading-8 text-white/68">{slide.copy}</p>
-                    <a href={slide.href} className="mt-9 inline-flex w-fit items-center gap-2 rounded-full bg-emerald-300 px-6 py-3.5 text-sm font-semibold text-forest-950 transition hover:bg-emerald-200">{slide.linkLabel}<ArrowRight className="size-4" /></a>
+                    <a
+                      href={slide.href}
+                      className="mt-9 inline-flex w-fit items-center gap-2 rounded-full bg-emerald-300 px-6 py-3.5 text-sm font-semibold text-forest-950 transition hover:bg-emerald-200"
+                    >
+                      {slide.linkLabel}
+                      <ArrowRight className="size-4" />
+                    </a>
                   </div>
                 </article>
               </CarouselItem>
@@ -151,8 +193,15 @@ export function EducationCarousel({ topic }: { topic: Topic }) {
         </Carousel>
 
         <div className="mt-6 flex justify-center gap-2">
-          {content.slides.map((slide, index) => (
-            <button key={slide.title} type="button" onClick={() => api?.scrollTo(index)} className={`h-2 rounded-full transition-all ${index === current ? 'w-10 bg-emerald-650' : 'w-5 bg-emerald-950/18 hover:bg-emerald-950/35'}`} aria-label={`Show teaching slide ${index + 1}`} aria-current={index === current} />
+          {activeSlides.map((slide, index) => (
+            <button
+              key={`${slide.title}-${index}`}
+              type="button"
+              onClick={() => api?.scrollTo(index)}
+              className={`h-2 rounded-full transition-all ${index === current ? 'w-10 bg-emerald-650' : 'w-5 bg-emerald-950/18 hover:bg-emerald-950/35'}`}
+              aria-label={`Show teaching slide ${index + 1}`}
+              aria-current={index === current}
+            />
           ))}
         </div>
       </div>

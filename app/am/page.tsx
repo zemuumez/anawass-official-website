@@ -27,7 +27,28 @@ export default function AmharicHome() {
 
         <section id="access" className="bg-[#e9f6ed] py-24 sm:py-32"><div className="mx-auto grid max-w-[1100px] gap-12 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center"><div className="relative min-h-[560px] overflow-hidden rounded-[2.2rem]"><img src="/media/anawass-vending-machine.jpeg" alt="የANAWASS ስማርት ጤና ቬንዲንግ ማሽን" className="absolute inset-0 size-full object-cover" /></div><div className="text-lg leading-9 text-forest-800/70"><MapPin className="size-7 text-emerald-650" /><h2 className="mt-7 text-4xl font-semibold tracking-[-.045em] text-forest-950 sm:text-5xl">የANAWASS ስማርት ቬንዲንግ መፍትሔ</h2><p className="mt-6">ይህ ማሽን የኤችአይቪ መከላከያ ትምህርትን፣ የግል የምርት ምርጫን እና ደህንነቱ የተጠበቀ አቅርቦትን በአንድ ጸጥ ያለ ሂደት ያገናኛል።</p><p className="mt-5">የሙከራ ቦታዎች ሲረጋገጡ አድራሻ፣ የስራ ሰዓት እና የማሽኑ አገልግሎት ሁኔታ እዚህ ይታያሉ።</p></div></div></section>
 
-        <section id="mission" className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-32"><div className="rounded-[2.4rem] bg-forest-950 p-8 text-white sm:p-14"><BookOpenText className="size-7 text-emerald-300" /><h2 className="mt-8 max-w-4xl text-4xl font-semibold tracking-[-.045em] sm:text-6xl">ግላዊነት ወደ መከላከያ የሚወስድ መንገድ እንጂ እንቅፋት መሆን የለበትም።</h2><p className="mt-7 max-w-3xl text-lg leading-9 text-white/68">ANAWASS ትክክለኛ የጤና መረጃን፣ ክብር ያለውን የምርት አቅርቦት እና ተጠያቂ ቴክኖሎጂን በአንድ ላይ ያገናኛል።</p><a href="/about" className={cn(buttonVariants({ size: 'lg' }), 'mt-9 h-12 rounded-full bg-emerald-300 px-6 text-forest-950')}>ስለ ANAWASS ይወቁ <ArrowRight className="size-4" /></a></div><p className="mt-6 text-sm leading-7 text-forest-800/52">ይህ የጤና መረጃ ለትምህርት የተዘጋጀ ነው፤ የብቃት ያለውን የጤና ባለሙያ ምክር፣ ምርመራ ወይም ሕክምና አይተካም።</p></section>
+        <section id="mission" className="mx-auto max-w-[1100px] px-5 py-24 sm:px-8 sm:py-32">
+          <div className="rounded-[2.4rem] bg-forest-950 p-8 text-white sm:p-14">
+            <BookOpenText className="size-7 text-emerald-300" />
+            <h2 className="mt-8 max-w-4xl text-4xl font-semibold tracking-[-.045em] sm:text-6xl">
+              ግላዊነት ወደ መከላከያ የሚወስድ መንገድ እንጂ እንቅፋት መሆን የለበትም።
+            </h2>
+            <p className="mt-7 max-w-3xl text-lg leading-9 text-white/68">
+              ANAWASS ትክክለኛ የጤና መረጃን፣ ክብር ያለውን የምርት አቅርቦት እና ተጠያቂ ቴክኖሎጂን በአንድ ላይ ያገናኛል።
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a href="/about" className={cn(buttonVariants({ size: 'lg' }), 'h-12 rounded-full bg-emerald-300 px-6 text-forest-950 hover:bg-emerald-200')}>
+                ስለ ANAWASS ይወቁ <ArrowRight className="size-4" />
+              </a>
+              <a href="/contact" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }), 'h-12 rounded-full border-white/30 bg-transparent px-6 text-white hover:bg-white/10 hover:text-white')}>
+                ያግኙን / መልእክት ይላኩ
+              </a>
+            </div>
+          </div>
+          <p className="mt-6 text-sm leading-7 text-forest-800/52">
+            ይህ የጤና መረጃ ለትምህርት የተዘጋጀ ነው፤ የብቃት ያለውን የጤና ባለሙያ ምክር፣ ምርመራ ወይም ሕክምና አይተካም።
+          </p>
+        </section>
         <EducationCarousel topic="am" />
       </main>
       <SiteFooter locale="am" />

@@ -22,6 +22,7 @@ const links = [
   { href: '/access', label: 'Smart vending' },
   { href: '/locations', label: 'Find a machine' },
   { href: '/about', label: 'Our mission' },
+  { href: '/contact', label: 'Contact us' },
 ];
 
 const amharicLinks = [
@@ -30,6 +31,7 @@ const amharicLinks = [
   { href: '/am#access', label: 'ስማርት ቬንዲንግ' },
   { href: '/locations', label: 'ማሽን ይፈልጉ' },
   { href: '/am#mission', label: 'ራዕያችን' },
+  { href: '/contact', label: 'ያግኙን' },
 ];
 
 export function SiteHeader({ compact = false, locale = 'en' }: { compact?: boolean; locale?: 'en' | 'am' }) {
@@ -111,6 +113,7 @@ export function SiteFooter({ locale = 'en' }: { locale?: 'en' | 'am' }) {
               <a href={isAmharic ? '/am#access' : '/access'}>{isAmharic ? 'ANAWASS ስማርት ቬንዲንግ' : 'Smart vending solution'}</a>
               <a href="/access#try-demo">{isAmharic ? 'የማሽኑን ሙከራ ይዩ' : 'Try the machine demo'}</a>
               <a href="/locations">{isAmharic ? 'ማሽን ይፈልጉ' : 'Machine locator'}</a>
+              <a href="/contact">{isAmharic ? 'ያግኙን' : 'Contact us'}</a>
               <a href="/privacy">{isAmharic ? 'ግላዊነት' : 'Privacy'}</a>
             </div>
           </div>
