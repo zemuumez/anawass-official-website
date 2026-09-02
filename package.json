@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
-    "@next/swc-darwin-arm64": "^15.2.0",
-    "@sanity/client": "^6.28.2",
+    "@sanity/client": "^7.26.2",
     "@sanity/image-url": "^1.1.0",
     "@shadcn/react": "0.3.0",
     "class-variance-authority": "0.7.1",
